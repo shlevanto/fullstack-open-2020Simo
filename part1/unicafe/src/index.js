@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-// jatka kohdasta 1.7
+const Statistics = (props) => {
+  const good = props.good
+  const neutral = props.neutral
+  const bad = props.bad
+  const sum = props.sum
+  const total = good + bad + neutral
+  
+  return (
+    <p>
+      all {total} <br/>
+      average {sum / total} <br/>
+      positive {100 * good / total} %
+    </p>
+  )
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
@@ -33,9 +47,7 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
-      <p>all {good + bad + neutral}</p>
-      <p>average {sum / (good + bad + neutral)}</p>
-      <p>positive {good / (good + bad + neutral) * 100} %</p>
+      <Statistics good = {good} neutral = {neutral} bad = {bad} sum = {sum} />
     </div>
   )
 }
