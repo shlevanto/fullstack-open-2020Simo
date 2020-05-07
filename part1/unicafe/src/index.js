@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-// jatka tehtävästä 1.10
 const Button = (props) => {
   return(
   <button onClick={props.handleClick}>{props.text}</button>
@@ -36,7 +35,7 @@ const Statistics = (props) => {
   return (
     <table>
       <tbody>
-        <tr><StatisticsLine text = 'good' value = {good} /></tr>
+        <tr><td><StatisticsLine text = 'good' value = {good} /></td></tr>
         <tr><td> <StatisticsLine text = 'neutral' value = {neutral} /></td></tr>
         <tr><td><StatisticsLine text = 'bad' value = {bad} /></td></tr>
         <tr><td><StatisticsLine text = 'all' value = {total}/> </td></tr>
