@@ -8,6 +8,12 @@ const Statistics = (props) => {
   const sum = props.sum
   const total = good + bad + neutral
   
+  if (total == 0) {
+    return (
+      <p>No feedback given</p>
+    )
+  }
+
   return (
     <p>
       all {total} <br/>
