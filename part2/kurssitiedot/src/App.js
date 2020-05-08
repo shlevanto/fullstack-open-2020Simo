@@ -1,6 +1,5 @@
 import React from 'react'
 import Course from './components/Course'
-import Header from './components/Course'
 
 
 const App = ({courses}) => {
