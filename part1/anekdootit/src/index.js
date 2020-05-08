@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Display = (props) => {
+  return (
+    props.value
+  )
+}
+
 const App = (props) => {
   const copy = {...anecdotes}
   
@@ -26,8 +32,8 @@ const App = (props) => {
 
   return (
     <div>
-      <p>{anecdotes[selected].text}</p>
-      <p>This anecdote has {copy[selected].points} votes</p>
+      <p><Display value = {anecdotes[selected].text} /></p>
+      <p>This anecdote has <Display value = {copy[selected].points}/> votes</p>
       <button onClick = {handleVote}>vote</button>
       <button onClick = {handleClick}>next anecdote</button>
     </div>
