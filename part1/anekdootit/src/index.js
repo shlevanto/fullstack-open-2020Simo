@@ -7,35 +7,50 @@ const Display = (props) => {
   )
 }
 
+const Favorite = (t) => {
+  console.log(t)
+  
+  return (
+    'plää'
+  )
+}
 const App = (props) => {
   const copy = {...anecdotes}
   
-  
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(0)
+  const [most, setMost] = useState(0)
+  const [favo, setFavo] = useState(0)
   
   
   const handleClick = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
-    setVotes(copy[selected].points)
-
   }
 
     
   const handleVote = () => {
   
     copy[selected].points += 1
-    setVotes(copy[selected].points)
     
+    if (copy[selected].points > most) {
+      setMost(copy[selected].points)
+      setFavo(selected)
+    }
+    
+    setVotes(copy[selected].points)
+
   }
 
 
   return (
     <div>
       <p><Display value = {anecdotes[selected].text} /></p>
-      <p>This anecdote has <Display value = {copy[selected].points}/> votes</p>
+      <p>This anecdote has {copy[selected].points} votes</p>
       <button onClick = {handleVote}>vote</button>
       <button onClick = {handleClick}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[favo].text}</p>
+      <p>has {most} votes</p>
     </div>
   )
 }
