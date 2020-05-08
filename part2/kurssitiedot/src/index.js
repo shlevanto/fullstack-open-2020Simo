@@ -1,57 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
-
-const Header = (props) => {
-  return (
-    <h1>{props.name}</h1>
-  )
-}
-
-const Content = (props) => {
-  const parts = props.parts
-  
-  return (
-  <ul>
-    {parts.map(part =>
-    <li key = {part.id}>
-      {part.name} {part.exercises}
-    </li>
-      )}
-
-  </ul>
-  )
-}
-
-
-const Total = (props) => {
-  const parts = props.parts.map(part => part.exercises)
-
-  const total = parts.reduce( (s, p) => s+p)
-
-  console.log(total);
-  
-  return (
-    <p>Number of exercises {total}</p>
-  )
-}
-
-const Course = (props) => {
-  const courses = props.courses
-  
-  return (
-    <ul>
-      {courses.map(course =>
-        <li key = {course.id}>
-        <Header name = {course.name} />
-        <Content parts = {course.parts}/>
-        <Total parts = {course.parts}/>
-        </li>
-      )}
-      
-    </ul>
-  )
-}
+import Course from './components/Course'
+import Header from './components/Course'
 
 const App = () => {
   const courses = [
@@ -98,10 +48,11 @@ const App = () => {
 
   return (
     <div>
-      <Header name = 'Web application development' />
-      <Course courses = {courses} />    
+      <h1>Web application development</h1>
+      {courses.map(course =>
+        <Course key = {course.id} course = {course}/>)}
     </div>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App  />, document.getElementById('root'))
