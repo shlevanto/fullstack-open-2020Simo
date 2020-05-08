@@ -40,16 +40,16 @@ const Course = (props) => {
   const courses = props.courses
   
   return (
-    <div>
+    <ul>
       {courses.map(course =>
-        <>
+        <li key = {course.id}>
         <Header name = {course.name} />
         <Content parts = {course.parts}/>
         <Total parts = {course.parts}/>
-        </>
+        </li>
       )}
       
-    </div>
+    </ul>
   )
 }
 
