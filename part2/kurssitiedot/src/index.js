@@ -23,9 +23,25 @@ const Content = (props) => {
   )
 }
 
+
+const euros = [29.76, 41.85, 46.5];
+
+const sum = euros.reduce((total, amount) =>  total + amount)
+
+console.log(sum)
+
+
 const Total = (props) => {
+  const parts = props.parts.map(part => part.exercises)
+
+  const total = parts.reduce( (s, p) => s+p)
+
+  console.log(total);
+  
+
+  
   return (
-    <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
+    <p>Number of exercises {total}</p>
   )
 }
 
@@ -56,6 +72,11 @@ const App = () => {
       { id: 3,
         name: 'State of a component',
         exercises: 14
+      },
+
+      { id: 4,
+        name: 'Redux',
+        exercises: 11
       }
   ]
   }
