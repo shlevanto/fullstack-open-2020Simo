@@ -9,6 +9,7 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
+  const [ Searched, setSearched ] = useState('?')
   
   const Person = (props) => {
     return (
@@ -20,20 +21,28 @@ const App = () => {
   const addPerson = (event) => { 
     event.preventDefault()
     
-    const nameObject = {
+    const personObject = {
       name: newName,
       number: newNumber
     }
 
-    let inBook = false
+    console.log(
+      persons.some(obj => obj.name === newName) 
+    );
+
+    if (persons.some(obj => obj.name ===  newName)) {
+      window.alert(`${newName} is already added in phonebook.`)
+      return
+    }
+    
+    /*let inBook = false
       
     const checkName = (person) => {
-      return person.name == nameObject.name
+      return person.name == personObject.name
     }
 
-    persons.forEach(person => {
-      
-      if (checkName(person) == true) {
+    persons.forEach(person => {  
+      if (checkName(person) === true) {
         inBook = true
         return inBook
       }
@@ -42,9 +51,9 @@ const App = () => {
     if (inBook) {   
       window.alert(`${newName} is already added in phonebook`)
       return
-    }
+    }*/
 
-    setPersons(persons.concat(nameObject))
+    setPersons(persons.concat(personObject))
 
     setNewName('')
     setNewNumber('')
@@ -52,6 +61,7 @@ const App = () => {
   }
 
   const handleNewName = (event) => {  
+    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
@@ -59,9 +69,21 @@ const App = () => {
     setNewNumber(event.target.value)
   })
 
+  const handleSearched = (event => {
+    setSearched(event.target.value)
+  })
+
   return (
     <div>
       <h1>Phonebook</h1>
+
+      <div>
+        filter shown with: <input
+        value = {Searched}
+        onChange = {handleSearched}
+        />
+      </div>
+      <h2>Add a new </h2>
       <form onSubmit = {addPerson}>
         <div>
           name: <input 
