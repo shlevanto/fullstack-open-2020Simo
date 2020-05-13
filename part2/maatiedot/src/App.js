@@ -4,7 +4,7 @@ import axios from 'axios'
 const Country = ({ country }) => {
 
     return (
-        <p>{country.name}</p>
+        <p>{country.name} </p>
     )
 }
 
