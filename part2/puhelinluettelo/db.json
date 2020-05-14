@@ -1,3 +1,64 @@
 {
-  "persons": []
+  "persons": [
+    {
+      "name": "Ada Lovelace",
+      "number": "438214798",
+      "id": 1
+    },
+    {
+      "name": "Arto Hellas",
+      "number": "4832091893",
+      "id": 2
+    },
+    {
+      "name": "Paavo Pesusieni",
+      "number": "43982109840932",
+      "id": 3
+    },
+    {
+      "name": "Pekka Peikko",
+      "number": "432098",
+      "id": 4
+    },
+    {
+      "name": "Einari",
+      "number": "5",
+      "id": 5
+    },
+    {
+      "name": "Eikka",
+      "number": "8",
+      "id": 6
+    },
+    {
+      "name": "Untamo",
+      "number": "432",
+      "id": 7
+    },
+    {
+      "name": "Uolevi",
+      "number": "4392",
+      "id": 8
+    },
+    {
+      "name": "Pirkko",
+      "number": "84329",
+      "id": 9
+    },
+    {
+      "name": "Iikka",
+      "number": "832",
+      "id": 10
+    },
+    {
+      "name": "Ismo",
+      "number": "87432",
+      "id": 11
+    },
+    {
+      "name": "Ilja",
+      "number": "u432",
+      "id": 12
+    }
+  ]
 }

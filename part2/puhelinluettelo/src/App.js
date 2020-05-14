@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import FilterForm from './components/FilterForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
-import axios from 'axios'
 
 
 const App = () => {
@@ -11,7 +10,9 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [Searched, setSearched] = useState('')
   const [showAll, setShowAll] = useState(true)
-
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorType, setErrorType] = useState(null)
+ 
   useEffect(() => {
     personService
       .getAll()
@@ -21,12 +22,26 @@ const App = () => {
 
   }, [])
 
+  const Notification = ({ message }) => {
+
+    if (message === null) {
+      return null
+    }
+    console.log(errorType)
+    
+    return (
+      <div className = {errorType}>
+        {message}
+      </div>
+    )
+  }
+
   const updatePersons = () => {
     personService
-    .getAll()
-    .then(personsNow => {
-      setPersons(personsNow)
-    })
+      .getAll()
+      .then(personsNow => {
+        setPersons(personsNow)
+      })
 
     setNewName('')
     setNewNumber('')
@@ -42,18 +57,32 @@ const App = () => {
     }
 
     if (persons.some(obj => obj.name === newName)) {
-      
+
       const result = window.confirm(`${newName} is already added in phonebook, replace the old number with a new one?`)
-      
+
       if (result) {
         const id = persons.find(n => n.name === newName).id
         console.log(id)
-        
+
         // update
         personService
           .update(id, personObject)
+
         updatePersons()
+        
+        setErrorType('notification')
+        
+        setErrorMessage(
+          `Updated ${newName}`
+        )
+
+        setTimeout(() => {
+          setErrorMessage(null)
+          setErrorType(null)
+        }, 2000)
+
       }
+
       return
     }
 
@@ -62,6 +91,17 @@ const App = () => {
       .then(response => {
         setPersons(persons.concat(personObject))
       })
+    
+    setErrorType('error')
+    setErrorMessage(
+      `Added ${newName}`,
+    )
+
+    setTimeout(() => {
+      setErrorMessage(null)
+      setErrorType(null)
+    }, 2000)
+
 
     setNewName('')
     setNewNumber('')
@@ -91,11 +131,11 @@ const App = () => {
     const name = persons.find(p => p.id === id).name
 
     const result = window.confirm(`Delete ${name}?`)
-    
+
     if (result) {
       personService.remove(id)
-      
-      
+
+
       // ja päivitetään persons
       updatePersons()
 
@@ -114,8 +154,8 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-
-      <div><FilterForm value={Searched} onChange={handleSearched} /></div>
+      <Notification message={errorMessage}></Notification>
+      <div><FilterForm value={Searched} onChange={handleSearched}/></div>
 
       <h2>Add a new </h2>
       <form onSubmit={addPerson}>
@@ -139,9 +179,9 @@ const App = () => {
       <h2>Numbers</h2>
 
       <div>
-        <Persons 
-        personsToShow={personsToShow} 
-        delPerson={delPerson} />
+        <Persons
+          personsToShow={personsToShow}
+          delPerson={delPerson} />
       </div>
     </div>
   )
