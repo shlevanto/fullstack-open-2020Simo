@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import FilterForm from './components/FilterForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
+import axios from 'axios'
 
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber] = useState('')
-  const [ Searched, setSearched ] = useState('')
-  const [ showAll, setShowAll ] = useState(true)
-  
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+  const [Searched, setSearched] = useState('')
+  const [showAll, setShowAll] = useState(true)
+
   useEffect(() => {
-    
     personService
       .getAll()
       .then(initialPersons => {
-        setPersons(initialPersons)})
-   
-  },[])
+        setPersons(initialPersons)
+      })
 
-  const addPerson = (event) => { 
+  }, [])
+
+  const addPerson = (event) => {
     event.preventDefault()
-    
+
     const personObject = {
       name: newName,
       number: newNumber
     }
 
-    if (persons.some(obj => obj.name ===  newName)) {
+    if (persons.some(obj => obj.name === newName)) {
       window.alert(`${newName} is already added in phonebook.`)
       return
     }
@@ -40,11 +40,11 @@ const App = () => {
         setPersons(persons.concat(personObject))
       })
 
-      setNewName('')
-      setNewNumber('')
+    setNewName('')
+    setNewNumber('')
   }
 
-  const handleNewName = (event) => {  
+  const handleNewName = (event) => {
     setNewName(event.target.value)
   }
 
@@ -53,52 +53,77 @@ const App = () => {
   })
 
   const handleSearched = (event => {
-    
+
     if (Searched !== '') {
       setShowAll(false)
-    } 
-    
+    }
+
     setSearched(event.target.value)
-    
+
   })
+
+  const delPerson = id => {
+    console.log(`delete ${id}`)
+
+    const name = persons.find(p => p.id === id).name
+
+    const result = window.confirm(`Delete ${name}?`)
+    
+    if (result) {
+      const a = personService.remove(id)
+      console.log(a)
+      
+      // ja päivitetään persons
+      personService
+      .getAll()
+      .then(personsLeft => {
+        setPersons(personsLeft)
+      })
+
+    } else {
+      console.log(`Ok, will not delete ${name}`)
+    }
+  }
+
 
   const personsToShow = showAll
     ? persons
-    : persons.filter(person => 
+    : persons.filter(person =>
       person.name.toLowerCase().includes(Searched.toLowerCase())
     )
 
   return (
     <div>
       <h1>Phonebook</h1>
-      
-      <div><FilterForm value = {Searched} onChange = {handleSearched}/></div>
-      
+
+      <div><FilterForm value={Searched} onChange={handleSearched} /></div>
+
       <h2>Add a new </h2>
-      <form onSubmit = {addPerson}>
+      <form onSubmit={addPerson}>
         <div>
-          name: <input 
-          value = {newName}
-          onChange = {handleNewName}
-            />
+          name: <input
+            value={newName}
+            onChange={handleNewName}
+          />
         </div>
         <div>
           number: <input
-          value = {newNumber}
-          onChange = {handleNewNumber} 
-            />
+            value={newNumber}
+            onChange={handleNewNumber}
+          />
         </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
-      
+
       <h2>Numbers</h2>
-      
+
       <div>
-        <Persons personsToShow = {personsToShow}/>
+        <Persons 
+        personsToShow={personsToShow} 
+        delPerson={delPerson} />
       </div>
-    
     </div>
   )
 
