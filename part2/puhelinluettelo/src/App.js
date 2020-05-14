@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import FilterForm from './components/FilterForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
+import axios from 'axios'
 
 
 const App = () => {
@@ -12,7 +13,7 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [errorType, setErrorType] = useState(null)
- 
+
   useEffect(() => {
     personService
       .getAll()
@@ -28,9 +29,9 @@ const App = () => {
       return null
     }
     console.log(errorType)
-    
+
     return (
-      <div className = {errorType}>
+      <div className={errorType}>
         {message}
       </div>
     )
@@ -63,24 +64,49 @@ const App = () => {
       if (result) {
         const id = persons.find(n => n.name === newName).id
         console.log(id)
+        
 
-        // update
+        // update 
+        /*
+        axios
+          .put(`http://localhost:3001/persons/${id}`, personObject)
+          .then(response => {
+            console.log('success')
+            updatePersons()
+            setErrorType('notification')
+            setErrorMessage(
+            `Updated ${newName}`
+            )
+          })
+          .catch(error => {
+            console.log('error!')
+            setErrorType('error')
+            setErrorMessage(
+            `${newName} has already been deleted from database`)
+          })*/
+
+
         personService
           .update(id, personObject)
-
+          .then(response => {
+            console.log('success')
+            setErrorType('notification')
+            setErrorMessage(
+            `Updated ${newName}`)
+          })
+          .catch(error => {
+            console.log('such fail')
+            setErrorType('error')
+            setErrorMessage(
+            `${newName} has already been deleted from database`)
+          })
+        
         updatePersons()
-        
-        setErrorType('notification')
-        
-        setErrorMessage(
-          `Updated ${newName}`
-        )
 
         setTimeout(() => {
           setErrorMessage(null)
           setErrorType(null)
-        }, 2000)
-
+        }, 5000)
       }
 
       return
@@ -91,8 +117,8 @@ const App = () => {
       .then(response => {
         setPersons(persons.concat(personObject))
       })
-    
-    setErrorType('error')
+
+    setErrorType('notification')
     setErrorMessage(
       `Added ${newName}`,
     )
@@ -100,7 +126,7 @@ const App = () => {
     setTimeout(() => {
       setErrorMessage(null)
       setErrorType(null)
-    }, 2000)
+    }, 5000)
 
 
     setNewName('')
@@ -155,7 +181,7 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
       <Notification message={errorMessage}></Notification>
-      <div><FilterForm value={Searched} onChange={handleSearched}/></div>
+      <div><FilterForm value={Searched} onChange={handleSearched} /></div>
 
       <h2>Add a new </h2>
       <form onSubmit={addPerson}>
