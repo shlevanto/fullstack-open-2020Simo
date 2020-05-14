@@ -16,8 +16,8 @@ const App = () => {
     
     personService
       .getAll()
-      .then(response => {
-        setPersons(response.data)})
+      .then(initialPersons => {
+        setPersons(initialPersons)})
    
   },[])
 
