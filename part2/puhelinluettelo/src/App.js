@@ -21,6 +21,18 @@ const App = () => {
 
   }, [])
 
+  const updatePersons = () => {
+    personService
+    .getAll()
+    .then(personsNow => {
+      setPersons(personsNow)
+    })
+
+    setNewName('')
+    setNewNumber('')
+
+  }
+
   const addPerson = (event) => {
     event.preventDefault()
 
@@ -30,7 +42,18 @@ const App = () => {
     }
 
     if (persons.some(obj => obj.name === newName)) {
-      window.alert(`${newName} is already added in phonebook.`)
+      
+      const result = window.confirm(`${newName} is already added in phonebook, replace the old number with a new one?`)
+      
+      if (result) {
+        const id = persons.find(n => n.name === newName).id
+        console.log(id)
+        
+        // update
+        personService
+          .update(id, personObject)
+        updatePersons()
+      }
       return
     }
 
@@ -70,15 +93,11 @@ const App = () => {
     const result = window.confirm(`Delete ${name}?`)
     
     if (result) {
-      const a = personService.remove(id)
-      console.log(a)
+      personService.remove(id)
+      
       
       // ja päivitetään persons
-      personService
-      .getAll()
-      .then(personsLeft => {
-        setPersons(personsLeft)
-      })
+      updatePersons()
 
     } else {
       console.log(`Ok, will not delete ${name}`)
