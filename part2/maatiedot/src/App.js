@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Country = ({ country }) => {
+const Country = ({ country, handleShow, show, setCountries }) => {
+    if (show) {
+        setCountries(country)
+
+        return (
+            <><FullCountry country = {country}/></>
+        )
+    }
 
     return (
-        <p>{country.name} </p>
+        <p>{country.name} <button onClick = {handleShow()}>show</button></p>
     )
 }
 
@@ -31,45 +38,34 @@ const FullCountry = ({ country }) => {
 
 const Countries = (props) => {
     const countries = props.countries
-    const finder = props.finder
+    const handleShow = props.handleShow
+    const show = props.show
     const setCountries = props.setCountries
-
-    useEffect(() => {
-        axios
-            .get('https://restcountries.eu/rest/v2/all')
-            .then(response => {
-                setCountries(response.data)
-            })
-    },[])
 
     if (countries === null) {
         return (
             <div>Loading...</div>
         )
     }
-
-    const countriesToShow = false
-        ? countries
-        : countries.filter(country =>
-            country.name.toLowerCase().includes(finder.toLowerCase()))
-
-    if (countriesToShow.length > 10) {
+   
+    if (countries.length > 10) {
         return (
             <div>Too many</div>
         )
     }
 
-    if (countriesToShow.length > 1) {
+    if (countries.length > 1) {
+        
         return (
             <div>
-                {countriesToShow.map(country =>
-                    <Country key={country.name} country={country} />)}
+                {countries.map(country =>
+                    <Country key={country.name} country={country} handleShow = {() => handleShow} show = {show} setCountries = {() => setCountries} />)}
             </div>
         )
     }
 
     return (
-        <div>{countriesToShow.map(country =>
+        <div>{countries.map(country =>
             <FullCountry key={country.name} country={country} />)}
         </div>
     )
@@ -130,6 +126,24 @@ const WeatherInfo = ({weather}) => {
 const App = () => {
     const [countries, setCountries] = useState(null)
     const [finder, setFinder] = useState('')
+    const [show, setShow] = useState(false)
+    let countriesToShow = null
+    
+        useEffect(() => {
+
+        axios
+            .get('https://restcountries.eu/rest/v2/all')
+            .then(response => {
+                setCountries(response.data)
+            })
+    },[])
+    
+    if (countries !== null) {
+        countriesToShow = false
+        ? countries
+        : countries.filter(country =>
+        country.name.toLowerCase().includes(finder.toLowerCase()))
+        }
 
     const handleFinder = (event) => {
         console.log(event.target.value);
@@ -137,16 +151,21 @@ const App = () => {
         setFinder(event.target.value)
     }
 
-
+    const handleShow = () => {
+        setShow(!show)
+        console.log('Show must go on', show)
+        
+    }
     
-
+    console.log(countries)
+    
     return (
         <div>
             find countries <input
                 value={finder}
                 onChange={handleFinder}
             />
-            <Countries finder = {finder} countries = {countries} setCountries = {setCountries}/>
+            <Countries finder = {finder} countries = {countriesToShow} setCountries = {setCountries} handleShow = {handleShow} show = {show}/>
         </div>
     )
 }
