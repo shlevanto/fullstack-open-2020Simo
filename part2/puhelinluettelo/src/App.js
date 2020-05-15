@@ -64,26 +64,6 @@ const App = () => {
       if (result) {
         const id = persons.find(n => n.name === newName).id
         console.log(id)
-        
-
-        // update 
-        /*
-        axios
-          .put(`http://localhost:3001/persons/${id}`, personObject)
-          .then(response => {
-            console.log('success')
-            updatePersons()
-            setErrorType('notification')
-            setErrorMessage(
-            `Updated ${newName}`
-            )
-          })
-          .catch(error => {
-            console.log('error!')
-            setErrorType('error')
-            setErrorMessage(
-            `${newName} has already been deleted from database`)
-          })*/
 
 
         personService
