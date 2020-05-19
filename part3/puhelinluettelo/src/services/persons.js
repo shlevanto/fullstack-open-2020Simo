@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// heroku paikallinen viittaus
 const baseURL = '/api/persons'
 
 const getAll = () => {
