@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import FilterForm from './components/FilterForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
-import axios from 'axios'
-
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -63,7 +61,8 @@ const App = () => {
 
       if (result) {
         const id = persons.find(n => n.name === newName).id
-        console.log(id)
+        
+        console.log('tarttis päivittää', id)
 
 
         personService
@@ -72,13 +71,13 @@ const App = () => {
             console.log('success')
             setErrorType('notification')
             setErrorMessage(
-            `Updated ${newName}`)
+              `Updated ${newName}`)
           })
           .catch(error => {
             console.log('such fail')
             setErrorType('error')
             setErrorMessage(
-            `${newName} has already been deleted from database`)
+              `${newName} has already been deleted from database`)
           })
         
         updatePersons()
@@ -96,6 +95,13 @@ const App = () => {
       .create(personObject)
       .then(response => {
         setPersons(persons.concat(personObject))
+      })
+      .catch(error => {
+        console.log(error.response.data)
+        setErrorType('error')
+        setErrorMessage(
+          'Name must be at least 3 and number at least 8 characters'
+        )
       })
 
     setErrorType('notification')
@@ -195,4 +201,4 @@ const App = () => {
 }
 
 
-export default App;
+export default App

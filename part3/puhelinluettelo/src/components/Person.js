@@ -1,14 +1,14 @@
 import React from 'react'
 
 const Person = ( {person, delPerson} ) => {
-    return(
+  return(
     <p>
-        {person.name} {person.number} 
-        <button onClick = {delPerson}>
+      {person.name} {person.number} 
+      <button onClick = {delPerson}>
             Delete
-        </button> 
+      </button> 
     </p>
-    )
+  )
 }
 
-export default Person;
+export default Person
