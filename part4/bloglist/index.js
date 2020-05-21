@@ -14,7 +14,7 @@ const blogSchema = mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = 'mongodb+srv://fs2020user:KokoPino123@fs2020foo-nyyll.mongodb.net/test?retryWrites=true&w=majority'
+const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true } )
 
 app.use(cors())
