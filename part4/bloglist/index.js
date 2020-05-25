@@ -1,11 +1,12 @@
-const http = require ('http')
+const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
-
 const Blog = require('./models/blog')
+
+const logger = require('./utils/logger')
 
 app.use(cors())
 app.use(express.json())
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
 
 // kaikki blogit
 app.get('/api/blogs', (req, res) => {
-  console.log('getting blogs')
+  logger.info('getting blogs')
   
   Blog
     .find({})
@@ -50,8 +51,9 @@ app.post('/api/blogs', (req, res) => {
 
 // poista blogi
 
-const PORT = 3003
+// käynnistä
+const PORT = process.env.PORT
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+  logger.info(`Server running on port ${PORT}`)
   
 })
