@@ -4,14 +4,15 @@
   "description": "Fullstack part 4 exercises",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest --verbose"
   },
   "author": "Simo Levanto",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.0.0",
+    "eslint": "^7.1.0",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
@@ -20,5 +21,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.15",
     "mongoose-unique-validator": "^2.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
