@@ -2,7 +2,7 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Medium: Daily JS3",
+    "title": "Medium: Daily JS4",
     "author": "various",
     "url": "https://medium.com/dailyjs",
     "likes": 1
