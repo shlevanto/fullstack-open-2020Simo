@@ -5,22 +5,20 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-const blogSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
-})
-
-const Blog = mongoose.model('Blog', blogSchema)
-
-const mongoUrl = process.env.MONGODB_URI
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true } )
+const Blog = require('./models/blog')
 
 app.use(cors())
 app.use(express.json())
 
+// etusivu
+app.get('/', (req, res) => {
+  res.send('<h1>Bloglist</h1>')
+})
+
+// kaikki blogit
 app.get('/api/blogs', (req, res) => {
+  console.log('getting blogs')
+  
   Blog
     .find({})
     .then(blogs => {
@@ -28,15 +26,29 @@ app.get('/api/blogs', (req, res) => {
     })
 })
 
+// yksittäinen blogi
+app.get('/api/blogs/:id', (req, res) => {
+  Blog.findById(req.params.id)
+    .then(blog => {
+      if(blog) {
+        res.json(blog)
+      } else {
+        res.status(404).end()
+      }
+    })
+})
+
+// lisää blogi
 app.post('/api/blogs', (req, res) => {
   const blog = new Blog(req.body)
-
   blog  
     .save()
     .then(res => {
       res.status(201).json(res)
     })
 })
+
+// poista blogi
 
 const PORT = 3003
 app.listen(PORT, () => {

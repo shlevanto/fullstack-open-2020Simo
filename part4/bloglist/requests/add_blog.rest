@@ -1,7 +1,9 @@
-POST http://localhost:3001/api/blogs
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "name": "K",
-    "number": "9"
+    "title": "Medium: Daily JS3",
+    "author": "various",
+    "url": "https://medium.com/dailyjs",
+    "likes": 1
 }
