@@ -88,6 +88,23 @@ describe('total likes', () => {
     const result = listHelper.totalLikes(listOfBlogs)
     expect(result).toBe(36)
     
-    
   })
+})
+
+describe('favorite blog', () => {
+  test('of empty list returns error message', () => {
+    const result = listHelper.favoriteBlog([])
+    expect(result).toBe('No blogs')
+  })
+  
+  test('of list with one item', () => {
+    const result = listHelper.favoriteBlog(listWithOneBlog)
+    expect(result.title).toEqual(listWithOneBlog[0].title)
+  })
+  
+  test('of list with many items', () => {
+    const result = listHelper.favoriteBlog(listOfBlogs)
+    expect(result.title).toEqual('Canonical string reduction')
+  })
+  
 })
