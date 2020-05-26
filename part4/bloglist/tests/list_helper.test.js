@@ -108,3 +108,33 @@ describe('favorite blog', () => {
   })
   
 })
+
+describe('author with most blogs', () => {
+  test('of empty list returns error message', () => {
+    const result = listHelper.mostBlogs([])
+    expect(result).toBe('No blogs')
+  })
+  
+  test('of list with one item', () => {
+    const result = listHelper.mostBlogs(listWithOneBlog)
+    expect(result)
+      .toEqual(
+        {
+          author: listWithOneBlog[0].author,
+          blogs: 1
+        }
+      )
+  })
+
+  test('of list with many items', () => {
+    const result = listHelper.mostBlogs(listOfBlogs)
+    expect(result)
+      .toEqual(
+        {
+          author: 'Robert C. Martin',
+          blogs: 3
+        }
+      )
+    
+  })
+})
