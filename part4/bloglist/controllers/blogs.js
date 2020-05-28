@@ -31,16 +31,26 @@ blogsRouter.get('/api/blogs/:id', (req, res) => {
 })
 
 // lisää blogi
-blogsRouter.post('/api/blogs', (req, res) => {
-  const blog = new Blog(req.body)
-  blog  
-    .save()
-    .then(res => {
-      res.status(201).json(res)
-    })
+blogsRouter.post('/api/blogs', async (req, res) => {
+  const body = req.body
+  
+  !body.likes
+    ? body.likes = 0
+    : body.likes
+
+  console.log(body.likes)
+  
+  const blog = new Blog({
+    title: body.title,
+    author: body.author,
+    url: body.url,
+    likes: body.likes
+  })
+
+ 
+  const savedBlog = await blog.save()
+  res.json(savedBlog.toJSON())
 })
 
 // poista blogi
-
-
 module.exports = blogsRouter
