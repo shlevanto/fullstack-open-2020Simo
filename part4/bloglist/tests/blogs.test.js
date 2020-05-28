@@ -23,3 +23,11 @@ test('get all blogs returns right amount of blogs in JSON format', async () => {
   
   expect(response.body).toHaveLength(helper.initialBlogs.length)
 })
+
+test('id field is named "id"', async () => {
+  const response = await api.get('/api/blogs/')
+  
+  const firstBlog = response.body[0]
+
+  expect(firstBlog.id).toBeDefined()
+})
