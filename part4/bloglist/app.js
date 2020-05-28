@@ -4,9 +4,9 @@ const cors = require('cors')
 const blogsRouter = require('./controllers/blogs')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
+const config = require('./utils/config')
 
-
-const url = process.env.MONGODB_URI
+const url = config.url
 
 logger.info('connecting to', url)
 

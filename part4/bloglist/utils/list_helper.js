@@ -4,17 +4,6 @@ const dummy = (blogs) => {
   return 1
 }
 
-const listWithOneBlog = [
-  {
-    _id: '1',
-    title: 'The one item test blog',
-    author: 'Testy McTestyface',
-    url: 'www.testland.te',
-    likes: 5,
-    __v: 0
-  }
-]
-
 const totalLikes = (blogs) => {
   const reducer = (sum, likes) => {
     

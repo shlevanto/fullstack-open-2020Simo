@@ -8,10 +8,10 @@ blogsRouter.get('/', (req, res) => {
 })
 
 // kaikki blogit
-blogsRouter.get('/api/blogs', (req, res) => {
+blogsRouter.get('/api/blogs', async (req, res) => {
   logger.info('getting blogs')
   
-  Blog
+  await Blog
     .find({})
     .then(blogs => {
       res.json(blogs)
