@@ -131,3 +131,25 @@ describe('deleting blogs', () => {
     expect(ids).not.toContain(id)
   })
 })
+
+describe('updating blogs', () => {
+
+  test('likes gets updated', async () => {
+    const blogs = await helper.blogsInDb()
+    const toUpdate = blogs[0]
+
+    toUpdate.likes = 100
+    
+    await api
+      .put(`/api/blogs/${toUpdate.id}`)
+      .send(toUpdate)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(blogs.length)
+
+    const updatedBlogs = await helper.blogsInDb()
+    
+    expect(updatedBlogs[0].likes).toBe(100)
+  })
+  
+})
