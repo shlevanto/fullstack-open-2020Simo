@@ -75,4 +75,18 @@ describe('adding blogs', () => {
     
     expect(recentlyAdded.likes).toBe(0)
   })
+
+  test('if added blog lacks title and url --> bad request', async () => {
+    const newBlog = {
+      author: 'Simo Levanto', 
+      likes: 2, 
+      __v: 0 
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+
+  })
 })

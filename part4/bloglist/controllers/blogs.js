@@ -34,11 +34,15 @@ blogsRouter.get('/api/blogs/:id', (req, res) => {
 blogsRouter.post('/api/blogs', async (req, res) => {
   const body = req.body
   
+  if (!body.title || !body.url) {
+    res.status(400).end()
+    
+  }
+  
+
   !body.likes
     ? body.likes = 0
     : body.likes
-
-  console.log(body.likes)
   
   const blog = new Blog({
     title: body.title,
