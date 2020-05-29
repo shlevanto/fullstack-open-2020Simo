@@ -57,4 +57,10 @@ blogsRouter.post('/api/blogs', async (req, res) => {
 })
 
 // poista blogi
+
+blogsRouter.delete('/api/blogs/:id', async (req, res) => {
+  await Blog.findByIdAndRemove(req.params.id)
+  res.status(204).end()
+})
+
 module.exports = blogsRouter

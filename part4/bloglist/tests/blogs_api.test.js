@@ -77,16 +77,57 @@ describe('adding blogs', () => {
   })
 
   test('if added blog lacks title and url --> bad request', async () => {
-    const newBlog = {
+    const newBlogLacksBoth = {
       author: 'Simo Levanto', 
       likes: 2, 
       __v: 0 
     }
 
+    const newBlogLacksTitle = {
+      tilte: 'I has title',
+      author: 'Simo Levanto', 
+      likes: 2, 
+      __v: 0 
+    }
+
+    const newBlogLacksUrl = {
+      author: 'Simo Levanto', 
+      likes: 2,
+      url: 'http://www.ihasurl.lol', 
+      __v: 0 
+    }
+
     await api
       .post('/api/blogs')
-      .send(newBlog)
+      .send(newBlogLacksBoth)
       .expect(400)
 
+    await api
+      .post('/api/blogs')
+      .send(newBlogLacksTitle)
+      .expect(400)
+
+
+    await api
+      .post('/api/blogs')
+      .send(newBlogLacksUrl)
+      .expect(400)
+  })
+})
+
+describe('deleting blogs', () => {
+  test('blog gets deleted', async () => {
+    const blogs = await helper.blogsInDb()
+    const id = blogs[0].id
+
+    await api
+      .delete(`/api/blogs/${id}`)
+      .expect(204)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(blogs.length - 1)
+
+    const ids = blogsAtEnd.map(b => b.id)
+    expect(ids).not.toContain(id)
   })
 })
