@@ -3,6 +3,7 @@ require('express-async-errors')
 const app = express()
 const cors = require('cors')
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
@@ -20,9 +21,10 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     logger.error('error connecting to MongoDB', error.message)
   })
 
+
 app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 app.use('/', blogsRouter)
-
+app.use('/api/users', usersRouter)
 module.exports = app

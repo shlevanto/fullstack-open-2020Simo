@@ -150,6 +150,7 @@ describe('updating blogs', () => {
     const updatedBlogs = await helper.blogsInDb()
     
     expect(updatedBlogs[0].likes).toBe(100)
+    expect(updatedBlogs[0].id).toEqual(blogs[0].id)
   })
   
 })
