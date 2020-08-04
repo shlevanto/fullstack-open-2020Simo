@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Medium: Daily JS4",
+    "title": "Testing 4.18. is fun!",
     "author": "various",
-    "url": "https://medium.com/dailyjs",
+    "url": "http://fullstackopen.com",
     "likes": 1
 }

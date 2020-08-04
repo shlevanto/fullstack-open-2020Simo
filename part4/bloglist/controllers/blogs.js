@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const logger = require('../utils/logger')
 
 // etusivu
@@ -7,12 +8,12 @@ blogsRouter.get('/', (req, res) => {
   res.send('<h1>Bloglist</h1>')
 })
 
-// kaikki blogit
+// hae kaikki blogit
 blogsRouter.get('/api/blogs', async (req, res) => {
   logger.info('getting blogs')
   
   await Blog
-    .find({})
+    .find({}).populate('user', { username: 1, name: 1})
     .then(blogs => {
       res.json(blogs)
     })
@@ -34,11 +35,18 @@ blogsRouter.get('/api/blogs/:id', (req, res) => {
 blogsRouter.post('/api/blogs', async (req, res) => {
   const body = req.body
   
+  // oikea toiminnallisuus
+  // const user = await User.findById(body.userId)
+  
+  // 4.18. lisätään ensimmäisenä tietokannassa oleva user
+  const users = await User.find({})
+  const user = users[0]
+  
+  // blogilla on oltava otsikko ja url
   if (!body.title || !body.url) {
     res.status(400).end()
     
   }
-  
 
   !body.likes
     ? body.likes = 0
@@ -48,11 +56,15 @@ blogsRouter.post('/api/blogs', async (req, res) => {
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes
+    likes: body.likes,
+    user: user._id
   })
 
  
   const savedBlog = await blog.save()
+  user.blogs = user.blogs.concat(savedBlog._id)
+  await user.save()
+  
   res.json(savedBlog.toJSON())
 })
 
