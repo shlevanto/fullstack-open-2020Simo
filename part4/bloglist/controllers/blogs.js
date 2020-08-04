@@ -2,6 +2,7 @@ const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const logger = require('../utils/logger')
+const jwt = require('jsonwebtoken')
 
 // etusivu
 blogsRouter.get('/', (req, res) => {
@@ -31,16 +32,32 @@ blogsRouter.get('/api/blogs/:id', (req, res) => {
     })
 })
 
+// tokenin käsittely
+const getTokenFrom = req => {
+  const authorization = req.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7)
+  }
+  return null
+}
 // lisää blogi
 blogsRouter.post('/api/blogs', async (req, res) => {
   const body = req.body
+  const token = getTokenFrom(req)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
   
-  // oikea toiminnallisuus
+  if(!token || !decodedToken.id) {
+    return res.status(401).json({ error: 'invalid or missing token'})
+  }
+
+  const user = await User.findById(decodedToken.id)
+
+  // ensimmäinen toiminnallisuus
   // const user = await User.findById(body.userId)
   
   // 4.18. lisätään ensimmäisenä tietokannassa oleva user
-  const users = await User.find({})
-  const user = users[0]
+  // const users = await User.find({})
+  // const user = users[0]
   
   // blogilla on oltava otsikko ja url
   if (!body.title || !body.url) {
