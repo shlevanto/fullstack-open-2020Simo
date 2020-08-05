@@ -43,10 +43,17 @@ const getTokenFrom = req => {
 // lisää blogi
 blogsRouter.post('/api/blogs', async (req, res) => {
   const body = req.body
-  const token = getTokenFrom(req)
-  const decodedToken = jwt.verify(token, process.env.SECRET)
+
   
-  if(!token || !decodedToken.id) {
+  
+  // 4.19. blogin lisääminen vaatii validin tokenin, tokenin haltija merkitään lisääjäksi
+  // const token = getTokenFrom(req)
+  // const decodedToken = jwt.verify(token, process.env.SECRET)
+  // 4.20. pitäisi saada toimimaan middlewarella
+  
+  const decodedToken = jwt.verify(req.token, process.env.SECRET)
+  
+  if(!decodedToken.id) {
     return res.status(401).json({ error: 'invalid or missing token'})
   }
 

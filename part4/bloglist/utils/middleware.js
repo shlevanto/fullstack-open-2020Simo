@@ -1,4 +1,5 @@
 const logger = require('./logger')
+const jwt = require('jsonwebtoken')
 
 const requestLogger = (req,res,next) => {
   logger.info('Method: ', req.method)
@@ -30,8 +31,22 @@ const errorHandler = (error, req, res, next) => {
   next(error)
 }
 
+// 4.20. eriytetään tokenextractori middlewareen
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get('authorization')
+  
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    req.token = authorization.substring(7)
+  } else { 
+    req.token = null
+  }
+  
+  next()
+}
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
-  errorHandler
+  errorHandler,
+  tokenExtractor
 }
