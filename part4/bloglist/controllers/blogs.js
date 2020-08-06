@@ -32,7 +32,7 @@ blogsRouter.get('/api/blogs/:id', (req, res) => {
     })
 })
 
-// tokenin käsittely
+// 4.19. tokenin käsittely
 const getTokenFrom = req => {
   const authorization = req.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -59,7 +59,7 @@ blogsRouter.post('/api/blogs', async (req, res) => {
 
   const user = await User.findById(decodedToken.id)
 
-  // ensimmäinen toiminnallisuus
+  // ensimmäinen toiminnallisuus, annetaan kiinteä id
   // const user = await User.findById(body.userId)
   
   // 4.18. lisätään ensimmäisenä tietokannassa oleva user
@@ -94,8 +94,27 @@ blogsRouter.post('/api/blogs', async (req, res) => {
 
 // poista blogi
 blogsRouter.delete('/api/blogs/:id', async (req, res) => {
-  await Blog.findByIdAndRemove(req.params.id)
-  res.status(204).end()
+  
+  const blog = await Blog.findById(req.params.id)
+
+  if (!blog) {
+    res.status(400).end()
+  }
+
+  
+  const decodedToken = jwt.verify(req.token, process.env.SECRET)
+  
+  console.log('decoded token user: ', decodedToken.id)
+  console.log('user for this blog: ', blog.user.toString())
+  
+  if (blog.user.toString() === decodedToken.id) {
+    await Blog.findByIdAndRemove(req.params.id)
+    res.status(204).end()
+  } else {
+    res.status(400).json({ error: 'only use who added blog can remove it' })
+  }
+
+  //
 })
 
 // muokkaa blogia 
