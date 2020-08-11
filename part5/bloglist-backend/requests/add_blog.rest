@@ -1,10 +1,10 @@
-POST http://localhost:3003/api/blogs
+POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNwb25nZUJvYiIsImlkIjoiNWYyOTcyNmYwYjE4OTgzMWQzZDE5YzA2IiwiaWF0IjoxNTk2NTY4MDE5fQ.LTbVzNhC1ZfW_N500YN5lhNP9Ywxc_WK3B513l5zPsU
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNwb25nZUJvYiIsImlkIjoiNWYyOTcyNmYwYjE4OTgzMWQzZDE5YzA2IiwiaWF0IjoxNTk3MTUwMzM3fQ.aQcDZFK8YNIQe_SiYDoZx9sGtEPNKw_TH4d2Hy7B2XE
 
 {
-    "title": "Testing 4.20. is a blast! But middleware sucks!",
-    "author": "various, add e to beginnig of token",
+    "title": "Fun with frontends 5.1.",
+    "author": "Dr Sheldon Cooper",
     "url": "http://fullstackopen.com",
     "likes": 1
 }
