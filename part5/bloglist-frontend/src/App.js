@@ -138,14 +138,21 @@ const App = () => {
 
     try {
       await blogService.create ({ newBlog })
+      setErrorMessage(`New blog: ${newBlogTitle} by ${newBlogAuthor} added`)
+      
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 2000)
+
       setNewBlogAuthor('')
       setNewBlogTitle('')
       setNewBlogUrl('')
       
       updateBlogs()
 
+
     } catch (exception) {
-      setErrorMessage('can not create blog')
+      setErrorMessage('Blog title can not be blank')
       setTimeout(() => {
         setErrorMessage(null)
       }, 2000)
