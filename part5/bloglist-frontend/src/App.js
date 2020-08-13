@@ -10,6 +10,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [errorType, setErrorType] = useState(null)
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
   const [newBlogUrl, setNewBlogUrl] = useState('')
@@ -112,6 +113,7 @@ const App = () => {
     console.log(user)
     
     } catch (exception) {
+      setErrorType('error')
       setErrorMessage('incorrect username or password')
       setTimeout(() => {
         setErrorMessage(null)
@@ -138,11 +140,12 @@ const App = () => {
 
     try {
       await blogService.create ({ newBlog })
+      setErrorType('notification')
       setErrorMessage(`New blog: ${newBlogTitle} by ${newBlogAuthor} added`)
       
       setTimeout(() => {
         setErrorMessage(null)
-      }, 2000)
+      }, 3000)
 
       setNewBlogAuthor('')
       setNewBlogTitle('')
@@ -152,10 +155,11 @@ const App = () => {
 
 
     } catch (exception) {
+      setErrorType('error')
       setErrorMessage('Blog title can not be blank')
       setTimeout(() => {
         setErrorMessage(null)
-      }, 2000)
+      }, 3000)
     }
 
     
@@ -167,7 +171,7 @@ const App = () => {
   <div>
     <h1>Bloglist</h1>
     
-    <Notification message = {errorMessage} />
+    <Notification message = {errorMessage} errorType = {errorType} />
     
     {user === null ?
      loginForm() :
