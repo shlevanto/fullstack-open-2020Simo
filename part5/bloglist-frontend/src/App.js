@@ -16,8 +16,7 @@ const App = () => {
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
   const [newBlogUrl, setNewBlogUrl] = useState('')
-  //const [newBlogVisible, setNewBlogVisibe] = useState(false)
-
+  
   useEffect(() => {
     updateBlogs()  
   }, [])
@@ -97,7 +96,7 @@ const App = () => {
   const newBlogForm = (props) => {
     
     return (
-    <Togglable buttonLabel="create blog">
+    <Togglable buttonLabel="create blog" cancelLabel="cancel">
       <div>    
         <NewCreation
           title = {newBlogTitle}
@@ -171,7 +170,7 @@ const App = () => {
       {newBlogForm()}
       <h2>blogs</h2>
       <Blogs blogs = {blogs}/>
-     
+      
      </div>
 
     }
