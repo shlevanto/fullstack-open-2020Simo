@@ -3,7 +3,7 @@ import React from 'react'
 const CreateBlogForm = (props) => {
   return (
   <div>
-    <h2>create new</h2>
+    <h2>create new blog</h2>
    
   <form onSubmit = {props.handleSubmit}>
       <div>

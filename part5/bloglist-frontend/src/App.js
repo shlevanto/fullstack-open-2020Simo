@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/notification'
 import NewCreation from './components/createBlogForm'
+import Togglable from './components/togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -15,7 +16,7 @@ const App = () => {
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
   const [newBlogUrl, setNewBlogUrl] = useState('')
-  const [newBlogVisible, setNewBlogVisibe] = useState(false)
+  //const [newBlogVisible, setNewBlogVisibe] = useState(false)
 
   useEffect(() => {
     updateBlogs()  
@@ -94,27 +95,21 @@ const App = () => {
   }
 
   const newBlogForm = (props) => {
-    const hideWhenVisible = { display: newBlogVisible ? 'none' : ''}
-    const showWhenvisible = { display: newBlogVisible ? '' : 'none'}
     
     return (
-    <div>
-      <div style={hideWhenVisible}>
-        <button onClick={() => setNewBlogVisibe(true)}>create blog</button>
-      </div>
-    <div style = {showWhenvisible}>
-      <NewCreation
-        title = {newBlogTitle}
-        author = {newBlogAuthor}
-        url = {newBlogUrl}
-        handleTitleChange={({ target }) =>setNewBlogTitle(target.value)}
-        handleAuthorChange={({ target }) => setNewBlogAuthor(target.value)}
-        handleUrlChange={({ target }) => setNewBlogUrl(target.value)}
-        handleSubmit = {handleCreation}
-        />
-        <button onClick={() => setNewBlogVisibe(false)}>cancel</button>
-      </div>
-    </div>
+    <Togglable buttonLabel="create blog">
+      <div>    
+        <NewCreation
+          title = {newBlogTitle}
+          author = {newBlogAuthor}
+          url = {newBlogUrl}
+          handleTitleChange={({ target }) =>setNewBlogTitle(target.value)}
+          handleAuthorChange={({ target }) => setNewBlogAuthor(target.value)}
+          handleUrlChange={({ target }) => setNewBlogUrl(target.value)}
+          handleSubmit = {handleCreation}
+          />
+        </div>
+    </Togglable>
     )
 }
 
