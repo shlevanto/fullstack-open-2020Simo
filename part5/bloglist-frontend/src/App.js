@@ -3,6 +3,7 @@ import Blogs from './components/blogs'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/notification'
+import NewCreation from './components/createBlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -14,6 +15,7 @@ const App = () => {
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
   const [newBlogUrl, setNewBlogUrl] = useState('')
+  const [newBlogVisible, setNewBlogVisibe] = useState(false)
 
   useEffect(() => {
     updateBlogs()  
@@ -57,40 +59,8 @@ const App = () => {
       <button type="submit">login</button>
     </form>
   )
-
-  const createBlogForm = () => (
-    <form onSubmit = {handleCreation}>
-      <h2>create new</h2>
-      <div>
-        title:
-        <input
-        type = "text"
-        value = {newBlogTitle}
-        name = "title:"
-        onChange = {({ target }) => setNewBlogTitle(target.value)}
-        />
-      </div>
-      <div>
-        author:
-        <input
-        type = "text"
-        value = {newBlogAuthor}
-        name = "author:"
-        onChange = {({ target }) => setNewBlogAuthor(target.value)}
-        />
-      </div>
-      <div>
-        url:
-        <input
-        type = "text"
-        value = {newBlogUrl}
-        name = "title:"
-        onChange = {({ target }) => setNewBlogUrl(target.value)}
-        />
-      </div>
-      <button type="submit">create</button>
-    </form>
-  )
+  
+  
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -122,6 +92,31 @@ const App = () => {
     }
     
   }
+
+  const newBlogForm = (props) => {
+    const hideWhenVisible = { display: newBlogVisible ? 'none' : ''}
+    const showWhenvisible = { display: newBlogVisible ? '' : 'none'}
+    
+    return (
+    <div>
+      <div style={hideWhenVisible}>
+        <button onClick={() => setNewBlogVisibe(true)}>create blog</button>
+      </div>
+    <div style = {showWhenvisible}>
+      <NewCreation
+        title = {newBlogTitle}
+        author = {newBlogAuthor}
+        url = {newBlogUrl}
+        handleTitleChange={({ target }) =>setNewBlogTitle(target.value)}
+        handleAuthorChange={({ target }) => setNewBlogAuthor(target.value)}
+        handleUrlChange={({ target }) => setNewBlogUrl(target.value)}
+        handleSubmit = {handleCreation}
+        />
+        <button onClick={() => setNewBlogVisibe(false)}>cancel</button>
+      </div>
+    </div>
+    )
+}
 
   const handleLogout = (event) => {
     setUser('')
@@ -161,9 +156,6 @@ const App = () => {
         setErrorMessage(null)
       }, 3000)
     }
-
-    
-
     
   }
 
@@ -181,7 +173,7 @@ const App = () => {
         <form onSubmit = {handleLogout}>
           <button type="submit">logout</button>
         </form>
-      {createBlogForm()}
+      {newBlogForm()}
       <h2>blogs</h2>
       <Blogs blogs = {blogs}/>
      
