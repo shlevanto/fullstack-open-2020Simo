@@ -60,8 +60,6 @@ const App = () => {
     </form>
   )
   
-  
-
   const handleLogin = async (event) => {
     event.preventDefault()
     console.log('logging in with', username, '+', password)
@@ -111,6 +109,7 @@ const App = () => {
     </Togglable>
     )
 }
+
 
   const handleLogout = (event) => {
     setUser('')
@@ -169,7 +168,10 @@ const App = () => {
         </form>
       {newBlogForm()}
       <h2>blogs</h2>
-      <Blogs blogs = {blogs}/>
+      <Blogs 
+        blogs = {blogs} 
+        update = {updateBlogs()}
+        />
       
      </div>
 

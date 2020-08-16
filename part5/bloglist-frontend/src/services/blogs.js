@@ -12,7 +12,7 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-const create = async newObject => {
+const create = async (newObject) => {
   console.log('blogservice token', token)
   
   const config = {
@@ -25,6 +25,16 @@ const create = async newObject => {
   return response.data
 }
 
+const update = async (newObject) => {
+  console.log('newObject in blogService', newObject)
+  
+  const blogUrl = `${baseUrl}/${newObject.id}`
+  console.log(blogUrl)
+  
+  const response = await axios.put(blogUrl, newObject)
+  return response.data
+}
 
 
-export default { getAll, create, setToken }
+
+export default { getAll, create, setToken, update }
