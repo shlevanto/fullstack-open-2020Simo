@@ -27,7 +27,7 @@ blogsRouter.get('/api/blogs/:id', (req, res) => {
       if(blog) {
         res.json(blog)
       } else {
-        res.status(404).end()
+        return res.status(404).end()
       }
     })
 })
@@ -40,11 +40,43 @@ const getTokenFrom = req => {
   }
   return null
 }
+
+// mallivastauksen toteutus
+/*
+blogsRouter.post('/api/blogs', async (request, response) => {
+  const blog = new Blog(request.body)
+
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+  if (!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  const user = await User.findById(decodedToken.id)
+
+  if (!blog.url || !blog.title) {
+    return response.status(400).send({ error: 'title or url missing ' })
+  }
+
+  if (!blog.likes) {
+    blog.likes = 0
+  }
+
+  blog.user = user
+  const savedBlog = await blog.save()
+
+  user.blogs = user.blogs.concat(savedBlog._id)
+  await user.save()
+
+  response.status(201).json(savedBlog)
+})
+*/
+
+// oma toteutus
 // lisää blogi
 blogsRouter.post('/api/blogs', async (req, res) => {
-  const body = req.body
-
-  
+  const body = req.body.newBlog
+  console.log(body.newBlog)
   
   // 4.19. blogin lisääminen vaatii validin tokenin, tokenin haltija merkitään lisääjäksi
   // const token = getTokenFrom(req)
@@ -68,13 +100,14 @@ blogsRouter.post('/api/blogs', async (req, res) => {
   
   // blogilla on oltava otsikko ja url
   if (!body.title || !body.url) {
-    res.status(400).end()
+    return res.status(400).end()
     
   }
 
   !body.likes
     ? body.likes = 0
     : body.likes
+  console.log(body)
   
   const blog = new Blog({
     title: body.title,
@@ -90,7 +123,9 @@ blogsRouter.post('/api/blogs', async (req, res) => {
   await user.save()
   
   res.json(savedBlog.toJSON())
+
 })
+
 
 // poista blogi
 blogsRouter.delete('/api/blogs/:id', async (req, res) => {
@@ -126,7 +161,8 @@ blogsRouter.put('/api/blogs/:id', async (req,res) => {
     author: body.author,
     url: body.url,
     likes: body.likes,
-    id: body.id
+    id: body.id,
+    user: body.user
   }
   
   await Blog.findByIdAndUpdate(req.params.id, blog, {new: true})

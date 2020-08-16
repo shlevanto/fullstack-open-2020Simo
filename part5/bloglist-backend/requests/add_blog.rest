@@ -1,10 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNwb25nZUJvYiIsImlkIjoiNWYyOTcyNmYwYjE4OTgzMWQzZDE5YzA2IiwiaWF0IjoxNTk3MTUwMzM3fQ.aQcDZFK8YNIQe_SiYDoZx9sGtEPNKw_TH4d2Hy7B2XE
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNwb25nZWJvYiIsImlkIjoiNWYzMjk3MmY3MGYwNWYzNGJiZDBiZjE2IiwiaWF0IjoxNTk3MjU5MTk5fQ.55j4HhH_8fauG8zBIkUpR25d1X73Oyjt0UrUDAQC2IY
+                 
 {
-    "title": "Fun with frontends 5.1.",
-    "author": "Dr Sheldon Cooper",
+    "title": "Trying to create blogs again",
+    "author": "Dr Funkadelicious",
     "url": "http://fullstackopen.com",
     "likes": 1
 }
