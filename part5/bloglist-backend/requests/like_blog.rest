@@ -1,0 +1,11 @@
+PUT http://localhost:3001/api/blogs/5f32963d70f05f34bbd0bf15
+Content-Type: application/json
+
+{
+"title": "Fun with frontends 5.1.",
+"author": "Dr Sheldon Cooper",
+"url": "http://fullstackopen.com",
+"likes": 2,
+"user": "5f32961670f05f34bbd0bf14",
+"id": "5f32963d70f05f34bbd0bf15"
+}
