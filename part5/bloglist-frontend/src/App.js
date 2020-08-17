@@ -16,10 +16,9 @@ const App = () => {
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
   const [newBlogUrl, setNewBlogUrl] = useState('')
-  const [detailsVisible, setDetailsVisible] = useState(false)
   
   useEffect(() => {
-    updateBlogs()  
+    updateBlogs()
   }, [])
 
   useEffect(() => {
@@ -111,7 +110,6 @@ const App = () => {
     )
 }
 
-
   const handleLogout = (event) => {
     setUser('')
     window.localStorage.removeItem('loggedUser')
@@ -171,11 +169,10 @@ const App = () => {
       <h2>blogs</h2>
       <Blogs 
         blogs = {blogs} 
-        update = {updateBlogs()}
+        update = {updateBlogs}
         />
       
      </div>
-
     }
 
   </div>
