@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import Togglable from './togglable'
 import blogService from '../services/blogs'
 
 
@@ -41,6 +40,7 @@ const Blog = ({ blog, update }) => {
 
   const toggle = () => {
     setVisibility(!visibility)
+    return
   }
 
   return (
@@ -58,7 +58,7 @@ const Blog = ({ blog, update }) => {
       {blog.url}
       <br/>
       {blog.likes}
-      <button onClick={likeBlog}> like</button>
+      <button onClick={likeBlog}>like</button>
       <br/>
       {blog.user.name}
     </div>
