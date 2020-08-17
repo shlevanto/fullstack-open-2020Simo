@@ -16,6 +16,7 @@ const App = () => {
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
   const [newBlogUrl, setNewBlogUrl] = useState('')
+  const [detailsVisible, setDetailsVisible] = useState(false)
   
   useEffect(() => {
     updateBlogs()  

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import Togglable from './togglable'
 import blogService from '../services/blogs'
 
@@ -11,12 +11,15 @@ const blogStyle = {
   marginBottom: 5
 }
 
-const Blog = ({ blog,update }) => {
- 
+
+const Blog = ({ blog, update }) => {
+  
+  const [visibility, setVisibility] = useState(false)
+  const hideWhenVisible = { display: visibility ? 'none': ''}
+  const showWhenVisibile = { display: visibility ? '' : 'none'}
+
   const likeBlog = async () => {
   
-    console.log(blog)
-      
       const likedBlog = {
          title: blog.title,
          likes: blog.likes + 1,
@@ -32,24 +35,36 @@ const Blog = ({ blog,update }) => {
        } catch (exception){
 
        }
+
+      
+  }
+
+  const toggle = () => {
+    setVisibility(!visibility)
   }
 
   return (
     <div style={blogStyle}>
-    <div>
-      {blog.title} 
+    <div style={hideWhenVisible}>
+      {blog.title}
       {blog.author}
-    <div>
-      <Togglable buttonLabel="view" cancelLabel="hide">
-        <p>{blog.likes}</p> 
-        <button onClick={likeBlog}>like</button>
-        <p>{blog.url}</p>
-        <p>{blog.user.name}</p>
-      </Togglable>
+      <button onClick={toggle}>view</button>
+    </div>
+    <div style={showWhenVisibile}>
+      {blog.title}
+      {blog.author}
+      <button onClick={toggle}>hide</button>
+      <br/>
+      {blog.url}
+      <br/>
+      {blog.likes}
+      <button onClick={likeBlog}> like</button>
+      <br/>
+      {blog.user.name}
     </div>
     </div>
-  </div>
-  )
-  }
+)
+
+}
 
 export default Blog
