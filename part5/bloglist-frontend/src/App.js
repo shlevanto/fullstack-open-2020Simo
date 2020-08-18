@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blogs from './components/blogs'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -93,10 +93,12 @@ const App = () => {
     
   }
 
+  const newBlogFormRef = useRef()
+
   const newBlogForm = (props) => {
     
     return (
-    <Togglable buttonLabel="create blog" cancelLabel="cancel">
+    <Togglable buttonLabel="create blog" cancelLabel="cancel" ref={newBlogFormRef}>
       <div>    
         <NewCreation
           title = {newBlogTitle}
@@ -128,6 +130,7 @@ const App = () => {
     }
 
     try {
+      
       await blogService.create ({ newBlog })
       setErrorType('notification')
       setErrorMessage(`New blog: ${newBlogTitle} by ${newBlogAuthor} added`)
@@ -139,6 +142,8 @@ const App = () => {
       setNewBlogAuthor('')
       setNewBlogTitle('')
       setNewBlogUrl('')
+      
+      newBlogFormRef.current.toggleVisibility()
       
       updateBlogs()
 
