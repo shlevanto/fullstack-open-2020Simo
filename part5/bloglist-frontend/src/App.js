@@ -95,7 +95,7 @@ const App = () => {
 
   const newBlogFormRef = useRef()
 
-  const newBlogForm = (props) => {
+  const newBlogForm = () => {
     
     return (
     <Togglable buttonLabel="create blog" cancelLabel="cancel" ref={newBlogFormRef}>
