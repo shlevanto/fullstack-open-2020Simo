@@ -150,7 +150,7 @@ const App = () => {
 
     } catch (exception) {
       setErrorType('error')
-      setErrorMessage('Blog title can not be blank')
+      setErrorMessage('Blog title and url can not be blank')
       setTimeout(() => {
         setErrorMessage(null)
       }, 3000)
@@ -161,9 +161,7 @@ const App = () => {
   return (
   <div>
     <h1>Bloglist</h1>
-    <Togglable>buttonLabel unohtui...</Togglable>
     <Notification message = {errorMessage} errorType = {errorType} />
-    
     {user === null ?
      loginForm() :
 
