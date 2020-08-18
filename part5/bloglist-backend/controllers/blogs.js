@@ -76,7 +76,7 @@ blogsRouter.post('/api/blogs', async (request, response) => {
 // lisää blogi
 blogsRouter.post('/api/blogs', async (req, res) => {
   const body = req.body.newBlog
-  console.log(body.newBlog)
+  console.log(body)
   
   // 4.19. blogin lisääminen vaatii validin tokenin, tokenin haltija merkitään lisääjäksi
   // const token = getTokenFrom(req)
