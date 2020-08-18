@@ -1,7 +1,7 @@
 import React from 'react'
 import Blog from './blog'
 
-const Blogs = ( {blogs, update} ) => {
+const Blogs = ( {blogs, update, loggedUser} ) => {
   return (
     <>
     {blogs.map(blog =>
@@ -10,6 +10,7 @@ const Blogs = ( {blogs, update} ) => {
       key={blog.id} 
       blog={blog} 
       update={update} 
+      loggedUser={loggedUser}
     />
     )}
 

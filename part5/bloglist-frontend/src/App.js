@@ -156,7 +156,6 @@ const App = () => {
   return (
   <div>
     <h1>Bloglist</h1>
-    
     <Notification message = {errorMessage} errorType = {errorType} />
     
     {user === null ?
@@ -172,6 +171,7 @@ const App = () => {
       <Blogs 
         blogs = {blogs} 
         update = {updateBlogs}
+        loggedUser = {user}
         />
       
      </div>

@@ -11,12 +11,12 @@ const blogStyle = {
 }
 
 
-const Blog = ({ blog, update }) => {
+const Blog = ({ blog, update, loggedUser }) => {
   
   const [visibility, setVisibility] = useState(false)
   const hideWhenVisible = { display: visibility ? 'none': ''}
   const showWhenVisibile = { display: visibility ? '' : 'none'}
-
+  
   const likeBlog = async () => {
   
       const likedBlog = {
@@ -33,15 +33,33 @@ const Blog = ({ blog, update }) => {
          update()
        } catch (exception){
 
-       }
+       }   
+  }
 
-      
+  const removeBlog = async () => {
+
+    if (window.confirm(`Remove ${blog.title} by ${blog.author}?`)) {
+    
+      const newObject = {
+      token: loggedUser.token,
+      id: blog.id
+      }
+
+      try {
+        await blogService.remove(newObject)
+        update()
+      } catch (exception) {
+
+      }
+  }
+
   }
 
   const toggle = () => {
     setVisibility(!visibility)
     return
   }
+
 
   return (
     <div style={blogStyle}>
@@ -61,6 +79,9 @@ const Blog = ({ blog, update }) => {
       <button onClick={likeBlog}>like</button>
       <br/>
       {blog.user.name}
+      <br/>
+      {loggedUser.username === blog.user.username 
+        ? <button onClick={removeBlog}>remove</button> : '' }
     </div>
     </div>
 )
