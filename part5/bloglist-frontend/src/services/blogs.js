@@ -13,21 +13,21 @@ const getAll = () => {
 }
 
 const create = async (newObject) => {
-  
+
   console.log('blog to be added', newObject)
-  
+
   const config = {
     headers: { Authorization: token },
   }
-  
+
   const response = await axios.post(baseUrl, newObject, config)
   return response.data
 }
 
 const update = async (newObject) => {
-  
+
   const blogUrl = `${baseUrl}/${newObject.id}`
-  
+
   const response = await axios.put(blogUrl, newObject)
   return response.data
 }
@@ -44,7 +44,7 @@ const remove = async (newObject) => {
 
   const response = await axios.delete(blogUrl, config)
   return response.data
-  
+
 }
 
 
