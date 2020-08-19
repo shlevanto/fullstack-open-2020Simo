@@ -149,6 +149,28 @@ const App = () => {
     }
   }
 
+  const likeBlog = async (blog) => {
+
+    console.log(blog)
+
+    const likedBlog = {
+      title: blog.title,
+      likes: blog.likes + 1,
+      author: blog.author,
+      url: blog.url,
+      id: blog.id,
+      user: blog.user.id
+    }
+
+    try {
+      await blogService.update(likedBlog, blog.id)
+    } catch (exception){
+      console.log(exception)
+    }
+
+    updateBlogs()
+  }
+
   return (
     <div>
       <h1>Bloglist</h1>
@@ -166,6 +188,7 @@ const App = () => {
             blogs = {blogs}
             update = {updateBlogs}
             loggedUser = {user}
+            likeBlog = {likeBlog}
           />
         </div>
       }

@@ -11,30 +11,11 @@ const blogStyle = {
 }
 
 
-const Blog = ({ blog, update, loggedUser }) => {
+const Blog = ({ blog, update, loggedUser, likeBlog }) => {
 
   const [visibility, setVisibility] = useState(false)
   const hideWhenVisible = { display: visibility ? 'none': '' }
   const showWhenVisibile = { display: visibility ? '' : 'none' }
-
-  const likeBlog = async () => {
-
-    const likedBlog = {
-      title: blog.title,
-      likes: blog.likes + 1,
-      author: blog.author,
-      url: blog.url,
-      id: blog.id,
-      user: blog.user.id
-    }
-
-    try {
-      await blogService.update(likedBlog, blog.id)
-      update()
-    } catch (exception){
-      console.log(exception)
-    }
-  }
 
   const removeBlog = async () => {
 
@@ -60,6 +41,9 @@ const Blog = ({ blog, update, loggedUser }) => {
     return
   }
 
+  const handleLike = () => {
+    likeBlog(blog)
+  }
 
   return (
     <div style={blogStyle}>
@@ -76,7 +60,7 @@ const Blog = ({ blog, update, loggedUser }) => {
         {blog.url}
         <br/>
         {blog.likes}
-        <button onClick={likeBlog}>like</button>
+        <button onClick={handleLike}>like</button>
         <br/>
         {blog.user.name}
         <br/>

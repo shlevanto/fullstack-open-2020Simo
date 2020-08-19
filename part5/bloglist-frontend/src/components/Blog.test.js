@@ -1,10 +1,9 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
-import { prettyDOM } from '@testing-library/react'
+// import { prettyDOM } from '@testing-library/react'
 import Blog from './Blog'
 
-test('blog renders default content, title and author', () => {
   const blog = {
     author: 'LolCat',
     title: 'I can has blog',
@@ -12,6 +11,15 @@ test('blog renders default content, title and author', () => {
     likes: 100,
     user: 1
   }
+
+test('blog renders default content, title and author', () => {
+  /*const blog = {
+    author: 'LolCat',
+    title: 'I can has blog',
+    url: 'www',
+    likes: 100,
+    user: 1
+  }*/
 
   const component = render (
     <Blog blog={blog} loggedUser={1} />
@@ -58,18 +66,11 @@ test('blog renders default content, title and author', () => {
   )
 })
 test('view details', () => {
-  const blog = {
-    author: 'LolCat',
-    title: 'I can has blog',
-    url: 'www',
-    likes: 100,
-    user: 1
-  }
 
   const mockHandler = jest.fn()
 
   const component = render (
-    <Blog blog={blog} loggedUser={1} toggle={mockHandler}/>
+    <Blog blog={blog} loggedUser={1} toggle={mockHandler} visibility={false}/>
   )
 
   const button = component.getByText('view')
@@ -92,3 +93,22 @@ test('view details', () => {
   expect(div).toHaveTextContent('100')
 
 })
+
+test('like blogs button calls likeBlog function from App.js', () => {
+  const mockHandler = jest.fn()
+
+  const component = render (
+    <Blog blog={blog} loggedUser={1} likeBlog={mockHandler} visibility={false}/>
+  )
+
+  const button = component.getByText('like')
+
+  // klikataan like
+  fireEvent.click(button)
+  fireEvent.click(button)
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
+
+})
+
+
