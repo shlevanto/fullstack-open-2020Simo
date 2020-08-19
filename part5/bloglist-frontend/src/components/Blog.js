@@ -45,15 +45,19 @@ const Blog = ({ blog, update, loggedUser, likeBlog }) => {
     likeBlog(blog)
   }
 
+  const comma = ', '
+
   return (
     <div style={blogStyle}>
       <div style={hideWhenVisible} className='blog'>
         {blog.title}
+        {comma}
         {blog.author}
         <button onClick={toggle}>view</button>
       </div>
       <div style={showWhenVisibile} className='details'>
         {blog.title}
+        {comma}
         {blog.author}
         <button onClick={toggle}>hide</button>
         <br/>
