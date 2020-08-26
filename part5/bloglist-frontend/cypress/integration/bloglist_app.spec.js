@@ -13,23 +13,25 @@ describe('Bloglist app', function() {
     cy.visit('http://localhost:3000')
   })
 
-  it('opens login page', function() {
-    cy.contains('Bloglist')
-    cy.contains('Login')
-  })
-  
-  it('can not log in with incorrect credentials', function() {
-    cy.get('#username').type('Bob')
-    cy.get('#password').type('hack')
-    cy.get('#login-button').click()
-    cy.contains('incorrect username or password')
-  })
+  describe('Login'), function ()  {
+    it('opens login page', function() {
+      cy.contains('Bloglist')
+      cy.contains('Login')
+    })
 
-  it('can log in with existing user', function() {
-    cy.get('#username').type('tepi')
-    cy.get('#password').type('hupi')
-    cy.get('#login-button').click()
-  })
+    it('can not log in with incorrect credentials', function() {
+      cy.get('#username').type('Bob')
+      cy.get('#password').type('hack')
+      cy.get('#login-button').click()
+      cy.get('.error').contains('incorrect username or password')
+    })
+
+    it('can log in with existing user', function() {
+      cy.get('#username').type('tepi')
+      cy.get('#password').type('hupi')
+      cy.get('#login-button').click()
+    })
+  }
 
   
 })

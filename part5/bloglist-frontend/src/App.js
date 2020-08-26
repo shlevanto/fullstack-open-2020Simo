@@ -182,7 +182,7 @@ const App = () => {
         <div>
           {user.name} logged in
           <form onSubmit = {handleLogout}>
-            <button type="submit">logout</button>
+            <button type="submit" id="logout-button">logout</button>
           </form>
           {newBlogForm()}
           <h2>blogs</h2>
