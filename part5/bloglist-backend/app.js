@@ -33,6 +33,13 @@ app.use('/', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
+console.log('using', process.env.NODE_ENV, 'database connection')
+
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/cypress')
+  app.use ('/api/testing', testingRouter)
+}
+
 app.use(middleware.errorHandler)
 
 module.exports = app
