@@ -32,7 +32,7 @@ Cypress.Commands.add('login', ({ username, password }) => {
     body: { username, password }
   })
     .then(({ body }) => {
-      localStorage.setItem('loggedBloglistUser', JSON.stringify(body))
+      localStorage.setItem('loggedUser', JSON.stringify(body))
       cy.visit('http://localhost:3000')
     })
 })
