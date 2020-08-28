@@ -43,7 +43,7 @@ Cypress.Commands.add('createBlog', ({ title, author, url }) => {
     author: author,
     url: url
   }
-  
+
   cy.request({
     url: 'http://localhost:3001/api/blogs',
     method: 'POST',

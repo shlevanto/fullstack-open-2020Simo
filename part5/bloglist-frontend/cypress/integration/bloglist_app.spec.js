@@ -59,7 +59,7 @@ describe('Bloglist app', function() {
       cy.get('#likes').contains('1')
     })
 
-    it.only('can delete a blog it created', function() {
+    it('can delete a blog it created', function() {
       cy.createBlog({
         title: 'One blog to rule them all',
         author: 'Sauron',
@@ -71,6 +71,29 @@ describe('Bloglist app', function() {
       cy.get('#remove-button').click()
       cy.should('not.contain', 'One blog to rule them all')
     })
+
+    it.only('sorts the blog so the most liked is first', function() {
+      cy.createBlog({
+        title: 'One blog to rule them all',
+        author: 'Sauron',
+        url: 'wwwm.mordor.gov'
+      })
+
+      cy.createBlog({
+        title: 'What about second breakfast?',
+        author: 'Pippin',
+        url: 'wwwm.theshire.hob'
+      })
+
+      cy.contains('One blog to rule them all')
+        .contains('view').click()
+      cy.contains('One blog to rule them all')
+        .parent().find('#like-button').click()
+
+      cy.get('#blogs')
+    })
+
+
 
   })
 })
