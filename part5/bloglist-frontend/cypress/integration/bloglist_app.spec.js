@@ -6,7 +6,6 @@ describe('Bloglist app', function() {
       password: 'hupi',
       name: 'TestiTeppo'
     }
-
     cy.request('POST', 'http://localhost:3001/api/users', user)
     cy.visit('http://localhost:3000')
   })
@@ -32,7 +31,7 @@ describe('Bloglist app', function() {
     })
   })
 
-  describe.only('when logged in', function() {
+  describe('when logged in', function() {
     beforeEach(function() {
       cy.login({ username: 'tepi', password: 'hupi' } )
     })
@@ -45,6 +44,24 @@ describe('Bloglist app', function() {
       cy.get('#submit-button').click()
       cy.contains('One blog to rule them all, Sauron')
       cy.contains('view')
+    })
+
+    it.only('the blog can be liked', function() {
+      /*cy.get('#toggle-button').click()
+      cy.get('#title').type('One blog to rule them all')
+      cy.get('#author').type('Sauron')
+      cy.get('#url').type('www.mordor.gov')
+      cy.get('#submit-button').click()
+      */
+      cy.createBlog({
+        title: 'One blog to rule them all',
+        author: 'Sauron',
+        url: 'wwwm.mordor.gov'
+      })
+
+      cy.get('#view-button').click()
+      cy.get('#like-button').click()
+      cy.get('#likes').contains('1')
     })
   })
 })

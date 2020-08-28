@@ -53,7 +53,7 @@ const Blog = ({ blog, update, loggedUser, likeBlog }) => {
         {blog.title}
         {comma}
         {blog.author}
-        <button onClick={toggle}>view</button>
+        <button id='view-button' onClick={toggle}>view</button>
       </div>
       <div style={showWhenVisibile} className='details'>
         {blog.title}
@@ -63,8 +63,8 @@ const Blog = ({ blog, update, loggedUser, likeBlog }) => {
         <br/>
         {blog.url}
         <br/>
-        {blog.likes}
-        <button onClick={handleLike}>like</button>
+        <div id='likes'>{blog.likes}</div>
+        <button id='like-button' onClick={handleLike}>like</button>
         <br/>
         {blog.user.name}
         <br/>
