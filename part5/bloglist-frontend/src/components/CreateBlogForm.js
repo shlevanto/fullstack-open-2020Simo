@@ -10,31 +10,34 @@ const CreateBlogForm = (props) => {
         <div>
           title:
           <input
+            id = "title"
             type = "text"
             value = {props.title}
-            name = "title:"
+            name = "title"
             onChange = {props.handleTitleChange}
           />
         </div>
         <div>
           author:
           <input
+            id = "author"
             type = "text"
             value = {props.author}
-            name = "author:"
+            name = "author"
             onChange = {props.handleAuthorChange}
           />
         </div>
         <div>
           url:
           <input
+            id = "url"
             type = "text"
             value = {props.url}
-            name = "title:"
+            name = "url"
             onChange = {props.handleUrlChange}
           />
         </div>
-        <button type="submit">create</button>
+        <button id="submit-button" type="submit">create</button>
       </form>
     </div>
   )

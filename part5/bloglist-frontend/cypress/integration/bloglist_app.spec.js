@@ -32,10 +32,19 @@ describe('Bloglist app', function() {
     })
   })
 
-  describe.only('create new blog after logging in', function() {
-    it('creates a new blog', function() {
+  describe.only('when logged in', function() {
+    beforeEach(function() {
       cy.login({ username: 'tepi', password: 'hupi' } )
-      cy.contains('blogs')
+    })
+
+    it('a new blog can be created', function() {
+      cy.get('#toggle-button').click()
+      cy.get('#title').type('One blog to rule them all')
+      cy.get('#author').type('Sauron')
+      cy.get('#url').type('www.mordor.gov')
+      cy.get('#submit-button').click()
+      cy.contains('One blog to rule them all, Sauron')
+      cy.contains('view')
     })
   })
 })
