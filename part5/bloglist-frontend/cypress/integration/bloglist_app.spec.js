@@ -46,13 +46,8 @@ describe('Bloglist app', function() {
       cy.contains('view')
     })
 
-    it.only('the blog can be liked', function() {
-      /*cy.get('#toggle-button').click()
-      cy.get('#title').type('One blog to rule them all')
-      cy.get('#author').type('Sauron')
-      cy.get('#url').type('www.mordor.gov')
-      cy.get('#submit-button').click()
-      */
+    it('the blog can be liked', function() {
+
       cy.createBlog({
         title: 'One blog to rule them all',
         author: 'Sauron',
@@ -63,5 +58,19 @@ describe('Bloglist app', function() {
       cy.get('#like-button').click()
       cy.get('#likes').contains('1')
     })
+
+    it.only('can delete a blog it created', function() {
+      cy.createBlog({
+        title: 'One blog to rule them all',
+        author: 'Sauron',
+        url: 'wwwm.mordor.gov'
+      })
+
+      cy.contains('One blog to rule them all')
+      cy.get('#view-button').click()
+      cy.get('#remove-button').click()
+      cy.should('not.contain', 'One blog to rule them all')
+    })
+
   })
 })
