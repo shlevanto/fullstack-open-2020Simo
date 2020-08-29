@@ -26,7 +26,7 @@ const Statistics = (props) => {
   const positive = 100 * good / total
 
   
-  if (total == 0) {
+  if (total === 0) {
     return (
       <p>No feedback given</p>
     )

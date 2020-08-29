@@ -29,16 +29,42 @@ const App = () => {
     })
   }
   
+  const Statistics = () => {
+    const good = store.getState().good
+    const neutral = store.getState().ok
+    const bad = store.getState().bad
+    const all = good + bad + neutral
+    const average = (good - bad) / all
+    const positive = good / all * 100
+    
+    if (all === 0) {
+      return (<div>no statistics</div>)
+    } else {
+
+      return (
+        <>
+          <div>good: {good}</div>
+          <div>neutral: {neutral}</div>
+          <div>bad: {bad}</div>
+          <div>all: {all}</div>
+          <div>average: {average}</div>
+          <div>positive: {positive} %</div>
+        </>
+      )
+    }
+  }
 
   return (
     <div>
-      <button onClick={good}>good</button> 
-      <button onClick={neutral}>neutral</button> 
-      <button onClick={bad}>bad</button>
-      <button onClick={reset}>reset stats</button>
-      <div>good {store.getState().good}</div>
-      <div>neutral {store.getState().ok}</div>
-      <div>bad {store.getState().bad}</div>
+      <h2>give feedback</h2>
+      <div>
+        <button onClick={good}>good</button> 
+        <button onClick={neutral}>neutral</button> 
+        <button onClick={bad}>bad</button>
+        <button onClick={reset}>reset stats</button>
+      </div>
+      <h2>statistics</h2>
+        <Statistics />
     </div>
   )
 }
