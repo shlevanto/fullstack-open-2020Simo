@@ -26,6 +26,14 @@ export const voteFor = (id) => {
   }
 }
 
+export const newAnecdote = (content) => {
+  return{
+    type: 'NEW_ANECDOTE',
+    data: {
+      content
+    }
+  }
+}
 const anecdoteReducer = (state = initialState, action) => {
   switch(action.type) {
     case('VOTE'): 
