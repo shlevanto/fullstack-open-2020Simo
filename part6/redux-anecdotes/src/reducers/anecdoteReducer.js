@@ -31,6 +31,15 @@ const anecdoteReducer = (state = initialState, action) => {
       
       return state.map(anecdote => anecdote.id !== id ? anecdote : votedAnecdote)
     
+    case('NEW_ANECDOTE'):
+      console.log(action.data)
+      if (action.data.content === '') {
+        return initialState
+      } else {
+        const newAnecdote = asObject(action.data.content)
+        return state.concat(newAnecdote)
+      }
+
     default: 
       return initialState
     }
