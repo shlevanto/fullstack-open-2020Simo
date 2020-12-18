@@ -1,24 +1,46 @@
-const notificationAtStart = 'render here notification'
+const initialState = ''
 
-const asObject = (notification) => {
-  return {
-    content: notification, 
-  }
-}
-
-const initialState = notificationAtStart
-
-
-export const newNotification = (content) => {
-  return{
-    type: 'NEW_ANECDOTE',
-    data: {
-      content
+export const notifyVote = (content) => {
+  console.log('notifier notifies:', content)
+    return{
+      type: 'NOTIFY_VOTE',
+      data: {
+        content
+      }
     }
   }
-}
+
+  export const notifyAdd = (content) => {
+    return {
+      type: 'NOTIFY_ADD',
+      data: {
+        content
+      }
+    }
+  }
+
+  export const clear = () => {
+    return {
+      type: 'CLEAR'
+    }
+  }
+  
+
 const notificationReducer = (state = initialState, action) => {
-  return 'notification'
+  switch(action.type) {
+    case('NOTIFY_VOTE'): 
+      return 'you voted ' + action.data.content
+        
+    case('NOTIFY_ADD'):
+      return 'you added ' + action.data.content
+
+    case('CLEAR'):
+      return initialState
+
+    default:
+      return initialState
+  }  
+  
   
 }
 
