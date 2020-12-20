@@ -14,10 +14,9 @@ const AnecdoteList = () => {
   
   const vote = (id, content) => {
     dispatch(voteFor(id))
-    dispatch(notifyVote(content))
-    
+    dispatch(notifyVote(content, 'visible'))
+      
     setTimeout(() => {
-      console.log('clear notification') 
       dispatch(clear())   
     }, 5000)
   }
@@ -26,8 +25,8 @@ const AnecdoteList = () => {
 
  return (
     <div>
-      <Notification />
       <h2>Anecdotes</h2>
+      <Notification  />
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>

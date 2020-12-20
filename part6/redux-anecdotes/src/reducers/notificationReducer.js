@@ -1,11 +1,18 @@
 const initialState = ''
 
+const visible = {
+  border: 'solid',
+  padding: 10,
+  borderWidth: 1
+}
+
 export const notifyVote = (content) => {
-  console.log('notifier notifies:', content)
-    return{
+
+    return {
       type: 'NOTIFY_VOTE',
       data: {
-        content
+        content: 'you voted ' + content,
+        style: visible
       }
     }
   }
@@ -14,28 +21,33 @@ export const notifyVote = (content) => {
     return {
       type: 'NOTIFY_ADD',
       data: {
-        content
+        content: 'you added ' + content,
+        style: visible
       }
     }
   }
 
-  export const clear = () => {
+  export const clear = (content) => {
     return {
-      type: 'CLEAR'
+      type: 'CLEAR',
+      data: {
+        content,
+        syle: null
+      }
     }
   }
   
 
-const notificationReducer = (state = initialState, action) => {
+const notificationReducer = (state, action) => {
   switch(action.type) {
     case('NOTIFY_VOTE'): 
-      return 'you voted ' + action.data.content
+      return action.data
         
     case('NOTIFY_ADD'):
-      return 'you added ' + action.data.content
+      return action.data
 
     case('CLEAR'):
-      return initialState
+      return ''
 
     default:
       return initialState
