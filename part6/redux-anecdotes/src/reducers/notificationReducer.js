@@ -1,5 +1,6 @@
 const initialState = ''
 
+
 const visible = {
   border: 'solid',
   padding: 10,
@@ -18,6 +19,7 @@ export const notifyVote = (content) => {
   }
 
   export const notifyAdd = (content) => {
+    
     return {
       type: 'NOTIFY_ADD',
       data: {
@@ -38,7 +40,7 @@ export const notifyVote = (content) => {
   }
   
 
-const notificationReducer = (state, action) => {
+const notificationReducer = (state=initialState, action) => {
   switch(action.type) {
     case('NOTIFY_VOTE'): 
       return action.data
@@ -50,7 +52,7 @@ const notificationReducer = (state, action) => {
       return ''
 
     default:
-      return initialState
+      return state
   }  
   
   

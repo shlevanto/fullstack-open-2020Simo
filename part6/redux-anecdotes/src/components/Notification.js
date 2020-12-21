@@ -11,7 +11,7 @@ const Notification = () => {
     borderWidth: 1
   }
 
-  console.log(notification)
+  console.log(notification[0])
   
   return (
     <div style={notification.style}>

@@ -27,7 +27,7 @@ export const voteFor = (id) => {
 }
 
 export const newAnecdote = (content) => {
-  return{
+  return {
     type: 'NEW_ANECDOTE',
     data: {
       content
@@ -56,7 +56,7 @@ const anecdoteReducer = (state = initialState, action) => {
       }
 
     default: 
-      return initialState
+      return state
     }
 }
 
