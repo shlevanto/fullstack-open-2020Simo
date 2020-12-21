@@ -5,12 +5,6 @@ const Notification = () => {
   
   const notification = useSelector(state => state.notification)
   
-  const visible = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1
-  }
-
   console.log(notification[0])
   
   return (
