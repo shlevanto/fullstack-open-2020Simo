@@ -29,9 +29,9 @@ export const voteFor = (id) => {
 export const newAnecdote = (content) => {
   return {
     type: 'NEW_ANECDOTE',
-    data: {
-      content
-    }
+    data: content,
+    id: getId(),
+    votes: 0
   }
 }
 
@@ -55,7 +55,7 @@ const anecdoteReducer = (state=[], action) => {
       return state.map(anecdote => anecdote.id !== id ? anecdote : votedAnecdote)
     
     case('NEW_ANECDOTE'):
-      console.log(action.data)
+      console.log('reducer', action.data)
       if (action.data.content === '') {
         return initialState
       } else {
